@@ -1,0 +1,557 @@
+{
+  "tasks": [
+    {
+      "id": "7ef20c59-3438-4fc1-ad76-682abc3ad5bb",
+      "name": "[Phase 1-1] Next.js 15 프로젝트 초기화 및 패키지 설치",
+      "description": "Next.js 15(App Router) 프로젝트를 초기화하고 필수 패키지를 설치한다. TypeScript, Tailwind CSS, shadcn/ui, Lucide React, ESLint, Prettier 설정 완료.",
+      "notes": "create-next-app 실행 시 현재 디렉토리(notion-cms-project)에 설치. App Router 반드시 선택.",
+      "status": "pending",
+      "dependencies": [],
+      "createdAt": "2026-04-21T13:56:47.304Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "package.json",
+          "type": "CREATE",
+          "description": "프로젝트 의존성 목록"
+        },
+        {
+          "path": "tsconfig.json",
+          "type": "CREATE",
+          "description": "TypeScript 설정"
+        },
+        {
+          "path": "tailwind.config.ts",
+          "type": "CREATE",
+          "description": "Tailwind CSS 설정"
+        },
+        {
+          "path": ".prettierrc",
+          "type": "CREATE",
+          "description": "Prettier 설정"
+        },
+        {
+          "path": "components.json",
+          "type": "CREATE",
+          "description": "shadcn/ui 설정"
+        }
+      ],
+      "implementationGuide": "1. npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias '@/*'\n2. npx shadcn@latest init (기본 설정 선택)\n3. npx shadcn@latest add button card badge input\n4. npm install lucide-react\n5. Prettier 설정 파일 생성 (.prettierrc)\n6. tsconfig.json strict 옵션 확인",
+      "verificationCriteria": "npm run dev 실행 시 Next.js 앱이 localhost:3000에서 정상 구동. npm run build 오류 없음. shadcn/ui Button, Card, Badge, Input 컴포넌트가 src/components/ui/ 하위에 존재.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "3133a85c-cfbd-4c39-b8c1-fafef318344e",
+      "name": "[Phase 1-2] Notion API 연동 환경 구축",
+      "description": "@notionhq/client 패키지를 설치하고 환경변수 파일을 구성한다. .env.local에 API 키를 설정하고 .env.example과 .gitignore를 정비한다.",
+      "notes": ".env.local은 절대 git commit 금지. Notion Integration 생성은 수동 작업이므로 사용자 안내 필요.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "7ef20c59-3438-4fc1-ad76-682abc3ad5bb"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": ".env.local",
+          "type": "CREATE",
+          "description": "환경변수 (커밋 금지)"
+        },
+        {
+          "path": ".env.example",
+          "type": "CREATE",
+          "description": "환경변수 예시 파일"
+        },
+        {
+          "path": ".gitignore",
+          "type": "TO_MODIFY",
+          "description": ".env.local 포함 확인"
+        },
+        {
+          "path": "package.json",
+          "type": "TO_MODIFY",
+          "description": "@notionhq/client 의존성 추가"
+        }
+      ],
+      "implementationGuide": "1. npm install @notionhq/client\n2. .env.local 파일 생성:\n   NOTION_API_KEY=secret_xxxx\n   NOTION_DATABASE_ID=xxxx\n3. .env.example 파일 생성 (값 없이 키만 기재)\n4. .gitignore에 .env.local 포함 여부 확인 및 추가",
+      "verificationCriteria": "@notionhq/client가 package.json dependencies에 존재. .env.example 파일에 NOTION_API_KEY, NOTION_DATABASE_ID 키만 존재(값 없음). .gitignore에 .env.local 포함.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "1cf9d61b-ee67-4034-abdc-b50fa29e4ee3",
+      "name": "[Phase 1-3] 기본 레이아웃 및 폴더 구조 생성",
+      "description": "src/app/layout.tsx 전역 레이아웃, globals.css 전역 스타일을 작성하고 PRD 8절 기준 폴더 구조를 생성한다.",
+      "notes": "폴더 구조가 PRD 8절과 일치해야 함. components/ui/는 shadcn/ui가 자동 생성하므로 별도 생성 불필요.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "3133a85c-cfbd-4c39-b8c1-fafef318344e"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/layout.tsx",
+          "type": "TO_MODIFY",
+          "description": "전역 레이아웃"
+        },
+        {
+          "path": "src/app/globals.css",
+          "type": "TO_MODIFY",
+          "description": "전역 스타일"
+        },
+        {
+          "path": "src/app/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "임시 홈 페이지"
+        },
+        {
+          "path": "src/components/.gitkeep",
+          "type": "CREATE",
+          "description": "컴포넌트 폴더"
+        },
+        {
+          "path": "src/lib/.gitkeep",
+          "type": "CREATE",
+          "description": "라이브러리 폴더"
+        },
+        {
+          "path": "src/types/.gitkeep",
+          "type": "CREATE",
+          "description": "타입 폴더"
+        }
+      ],
+      "implementationGuide": "1. src/app/layout.tsx: 기본 메타데이터(title, description), 폰트(Geist 또는 Inter) 설정\n2. src/app/globals.css: Tailwind 기본 디렉티브 확인\n3. 빈 디렉토리 생성: src/components/, src/lib/, src/types/\n4. src/app/page.tsx: 임시 홈 페이지 (Hello World 수준)",
+      "verificationCriteria": "npm run dev 정상 구동. src/ 하위에 app/, components/, lib/, types/ 디렉토리 존재. layout.tsx에 기본 title, description 메타데이터 설정.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "87a280b9-e83b-4cd1-be4b-4bbd16a2bd0d",
+      "name": "[Phase 2-1] 공통 타입 정의 (src/types/notion.ts)",
+      "description": "Post, NotionBlock 등 프로젝트 전반에서 사용할 Notion 관련 TypeScript 타입을 src/types/notion.ts에 정의한다.",
+      "notes": "any 타입 사용 금지. Notion API 응답 구조에 맞게 타입 설계. 추후 fetchPages 등 함수에서 참조함.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "1cf9d61b-ee67-4034-abdc-b50fa29e4ee3"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/types/notion.ts",
+          "type": "CREATE",
+          "description": "Notion 관련 공통 타입 정의"
+        },
+        {
+          "path": "docs/PRD.md",
+          "type": "REFERENCE",
+          "description": "Notion 데이터베이스 속성 구조 참고"
+        }
+      ],
+      "implementationGuide": "type Post {\n  id: string\n  title: string\n  category: string\n  tags: string[]\n  publishedAt: string\n  status: '초안' | '발행됨'\n  slug: string\n}\n\ntype NotionBlock {\n  id: string\n  type: string\n  paragraph?, heading_1?, heading_2?, heading_3?, code?, image?, quote?, bulleted_list_item?, numbered_list_item? 등 블록 타입별 선택적 속성\n}\n\ntype NotionBlockType = 'paragraph' | 'heading_1' | 'heading_2' | 'heading_3' | 'code' | 'image' | 'quote' | 'bulleted_list_item' | 'numbered_list_item'",
+      "verificationCriteria": "tsc --noEmit 통과. Post 타입에 id, title, category, tags, publishedAt, status, slug 필드 존재. NotionBlock 타입에 지원 블록 타입 포함.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "1310b073-e3c5-483a-baa8-5d3397fafa52",
+      "name": "[Phase 2-2] Notion API 공통 함수 구현 (src/lib/notion.ts)",
+      "description": "Notion 클라이언트 인스턴스를 생성하고 fetchPages, fetchPageContent, fetchPageBySlug 세 함수를 구현한다. 모든 Notion API 호출은 이 파일에서만 이루어진다.",
+      "notes": "페이지 컴포넌트에서 직접 @notionhq/client import 금지 — 이 파일만 사용. process.env.NOTION_API_KEY, NOTION_DATABASE_ID 사용.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "87a280b9-e83b-4cd1-be4b-4bbd16a2bd0d"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/lib/notion.ts",
+          "type": "CREATE",
+          "description": "Notion API 유틸리티 (단일 호출 지점)"
+        },
+        {
+          "path": "src/types/notion.ts",
+          "type": "DEPENDENCY",
+          "description": "Post, NotionBlock 타입 참조"
+        },
+        {
+          "path": ".env.local",
+          "type": "DEPENDENCY",
+          "description": "환경변수 참조"
+        }
+      ],
+      "implementationGuide": "1. notion 클라이언트 단일 인스턴스 생성\n2. fetchPages(filter?: { category?: string }): Promise<Post[]>\n   - Status === '발행됨' 필터 필수\n   - Published 기준 내림차순 정렬\n   - category 파라미터 있으면 Category 필터 추가\n   - Notion API 응답을 Post 타입으로 변환\n3. fetchPageBySlug(slug: string): Promise<Post | null>\n   - slug = pageId로 단일 페이지 조회\n4. fetchPageContent(pageId: string): Promise<NotionBlock[]>\n   - blocks.children.list API 호출\n   - NotionBlock 타입으로 변환",
+      "verificationCriteria": "fetchPages() 호출 시 Post[] 반환. fetchPageContent() 호출 시 NotionBlock[] 반환. Status !== '발행됨' 글이 결과에 포함되지 않음. tsc --noEmit 통과.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "33767deb-33fa-48b0-81f1-f1c2acd9dad7",
+      "name": "[Phase 2-3] 공통 컴포넌트 구현 (Header, Footer, PostCard)",
+      "description": "Header.tsx, Footer.tsx, PostCard.tsx 세 공통 컴포넌트를 구현한다. 모두 서버 컴포넌트로 작성.",
+      "notes": "shadcn/ui Card, Badge 컴포넌트 활용. Lucide React 아이콘 사용 가능. 서버 컴포넌트 우선.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "1310b073-e3c5-483a-baa8-5d3397fafa52"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/Header.tsx",
+          "type": "CREATE",
+          "description": "헤더 컴포넌트"
+        },
+        {
+          "path": "src/components/Footer.tsx",
+          "type": "CREATE",
+          "description": "푸터 컴포넌트"
+        },
+        {
+          "path": "src/components/PostCard.tsx",
+          "type": "CREATE",
+          "description": "글 카드 컴포넌트"
+        },
+        {
+          "path": "src/types/notion.ts",
+          "type": "DEPENDENCY",
+          "description": "Post 타입 참조"
+        },
+        {
+          "path": "src/components/ui/card.tsx",
+          "type": "DEPENDENCY",
+          "description": "shadcn/ui Card"
+        },
+        {
+          "path": "src/components/ui/badge.tsx",
+          "type": "DEPENDENCY",
+          "description": "shadcn/ui Badge"
+        }
+      ],
+      "implementationGuide": "Header.tsx:\n- 블로그명/로고 텍스트 표시\n- 서버 컴포넌트 (use client 없음)\n- SearchBar는 Phase 4에서 통합 예정이므로 자리만 확보\n\nFooter.tsx:\n- 기본 저작권 텍스트\n- 서버 컴포넌트\n\nPostCard.tsx:\n- Props: Post 타입\n- shadcn/ui Card, CardContent 사용\n- Badge로 카테고리, 태그 표시\n- 날짜 포맷팅\n- /posts/[slug] 링크",
+      "verificationCriteria": "세 컴포넌트 모두 use client 없음(서버 컴포넌트). PostCard가 Post 타입 props를 받아 제목, 카테고리, 태그, 날짜를 렌더링. tsc --noEmit 통과.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "f5a78178-ed59-4920-bf0f-d5717dc8cabd",
+      "name": "[Phase 3-1] 글 목록 페이지 구현 (/)",
+      "description": "src/app/page.tsx를 서버 컴포넌트로 구현한다. fetchPages()로 글 목록을 조회하여 PostCard 그리드로 렌더링. ISR revalidate=60 적용.",
+      "notes": "서버 컴포넌트. CategoryFilter는 Phase 4에서 추가. 카드 그리드: 모바일 1열, 태블릿 2열, 데스크탑 3열 기본 설정.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "33767deb-33fa-48b0-81f1-f1c2acd9dad7"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "홈(글 목록) 페이지"
+        },
+        {
+          "path": "src/app/layout.tsx",
+          "type": "TO_MODIFY",
+          "description": "Header/Footer 통합"
+        },
+        {
+          "path": "src/lib/notion.ts",
+          "type": "DEPENDENCY",
+          "description": "fetchPages 함수"
+        },
+        {
+          "path": "src/components/PostCard.tsx",
+          "type": "DEPENDENCY",
+          "description": "글 카드 컴포넌트"
+        },
+        {
+          "path": "src/components/Header.tsx",
+          "type": "DEPENDENCY",
+          "description": "헤더 컴포넌트"
+        }
+      ],
+      "implementationGuide": "1. export const revalidate = 60\n2. fetchPages() 호출로 posts 조회\n3. posts가 없을 때 빈 상태(empty state) UI 표시\n4. posts.map으로 PostCard 그리드 렌더링\n5. Header, Footer 컴포넌트 통합\n6. layout.tsx에서 Header/Footer를 감싸거나 page.tsx에서 직접 사용",
+      "verificationCriteria": "localhost:3000에서 Notion 발행된 글이 카드 그리드로 표시. 글 없을 때 빈 상태 UI 표시. revalidate=60 설정 존재. npm run build 성공.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "a3a233b5-5c57-4d93-aa02-a2cccfeaa03d",
+      "name": "[Phase 3-2] 글 상세 페이지 구현 (/posts/[slug])",
+      "description": "src/app/posts/[slug]/page.tsx를 서버 컴포넌트로 구현한다. generateStaticParams, generateMetadata, notFound 처리, ISR revalidate=3600 적용.",
+      "notes": "PostContent 컴포넌트([Phase 3-3])와 동시 개발 가능. PostContent 완료 전에는 블록 렌더링 부분을 임시 placeholder로 처리.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "33767deb-33fa-48b0-81f1-f1c2acd9dad7"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/posts/[slug]/page.tsx",
+          "type": "CREATE",
+          "description": "글 상세 페이지"
+        },
+        {
+          "path": "src/lib/notion.ts",
+          "type": "DEPENDENCY",
+          "description": "fetchPageBySlug, fetchPageContent 함수"
+        },
+        {
+          "path": "src/types/notion.ts",
+          "type": "DEPENDENCY",
+          "description": "Post, NotionBlock 타입"
+        },
+        {
+          "path": "src/components/PostContent.tsx",
+          "type": "DEPENDENCY",
+          "description": "블록 렌더러 (Phase 3-3에서 생성)"
+        }
+      ],
+      "implementationGuide": "1. export const revalidate = 3600\n2. generateStaticParams(): fetchPages()로 전체 글 조회 후 slug 배열 반환\n3. generateMetadata({ params }): fetchPageBySlug로 글 조회 후 title, description, OG 태그 반환\n4. Page 컴포넌트:\n   - fetchPageBySlug(slug) 호출, null이면 notFound()\n   - 글 제목, 카테고리(Badge), 태그(Badge), 발행일 표시\n   - fetchPageContent(slug)로 블록 조회\n   - PostContent 컴포넌트에 블록 전달\n5. '목록으로 돌아가기' 링크(/)",
+      "verificationCriteria": "존재하는 slug 접근 시 글 상세 페이지 렌더링. 존재하지 않는 slug 접근 시 404 페이지. generateStaticParams 동작. revalidate=3600 설정 존재. npm run build 성공.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "a1eab373-e292-4936-933c-238477f8f205",
+      "name": "[Phase 3-3] Notion 콘텐츠 블록 렌더러 구현 (PostContent)",
+      "description": "src/components/PostContent.tsx를 구현한다. NotionBlock 배열을 받아 블록 타입별로 HTML/JSX로 렌더링한다.",
+      "notes": "이미지 블록에서 next/image 필수. 지원하지 않는 블록 타입은 조용히 생략. next.config.ts에 Notion 이미지 도메인(images.unsplash.com 등) 추가 필요할 수 있음.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "1310b073-e3c5-483a-baa8-5d3397fafa52"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/PostContent.tsx",
+          "type": "CREATE",
+          "description": "Notion 블록 렌더러"
+        },
+        {
+          "path": "src/types/notion.ts",
+          "type": "DEPENDENCY",
+          "description": "NotionBlock 타입"
+        },
+        {
+          "path": "next.config.ts",
+          "type": "TO_MODIFY",
+          "description": "이미지 도메인 허용 설정"
+        }
+      ],
+      "implementationGuide": "지원 블록 타입별 렌더링:\n- paragraph → <p>\n- heading_1 → <h1>\n- heading_2 → <h2>\n- heading_3 → <h3>\n- code → <pre><code> (언어명 표시)\n- image → next/image (<img> 금지)\n- quote → <blockquote>\n- bulleted_list_item → <ul><li>\n- numbered_list_item → <ol><li>\n\n미지원 블록 타입: null 반환 (에러 throw 금지)\n\nrich_text 배열에서 plain_text 추출하여 텍스트 렌더링\nnext/image 사용 시 width, height 또는 fill 속성 필수",
+      "verificationCriteria": "paragraph, heading_1~3, code, image, quote, bulleted/numbered_list_item 블록이 올바른 HTML 요소로 렌더링. 이미지는 next/image 사용. 미지원 블록 타입에서 에러 없음. tsc --noEmit 통과.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "20a1aa7f-24e9-4494-8c4f-7d64bc9936d0",
+      "name": "[Phase 4-1] 카테고리 필터링 기능 구현",
+      "description": "src/components/CategoryFilter.tsx를 구현하고 홈 페이지에 통합한다. URL 파라미터(?category=Frontend) 기반으로 필터 상태를 관리한다.",
+      "notes": "CategoryFilter만 클라이언트 컴포넌트, page.tsx는 서버 컴포넌트 유지. Next.js 15 App Router에서 searchParams는 서버 컴포넌트 props로 전달.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "f5a78178-ed59-4920-bf0f-d5717dc8cabd"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/CategoryFilter.tsx",
+          "type": "CREATE",
+          "description": "카테고리 필터 컴포넌트 (클라이언트)"
+        },
+        {
+          "path": "src/app/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "CategoryFilter 통합, searchParams 처리"
+        },
+        {
+          "path": "src/lib/notion.ts",
+          "type": "TO_MODIFY",
+          "description": "category 필터 파라미터 연동 확인"
+        }
+      ],
+      "implementationGuide": "CategoryFilter.tsx (클라이언트 컴포넌트):\n- 'use client' 선언\n- useRouter, useSearchParams, usePathname 사용\n- [전체] 탭 + 동적 카테고리 탭 렌더링\n- 탭 클릭 시 router.push('/?category=XXX') 또는 router.push('/')\n- 현재 URL의 category 파라미터와 일치하는 탭 하이라이트\n\n홈 페이지(page.tsx) 수정:\n- searchParams.category를 fetchPages({ category }) 에 전달\n- CategoryFilter에 categories 배열 props로 전달\n- categories는 fetchPages()결과에서 중복 제거하여 추출",
+      "verificationCriteria": "카테고리 탭 클릭 시 URL이 /?category=Frontend 형태로 변경. 해당 카테고리 글만 표시. [전체] 클릭 시 필터 해제. 페이지 새로고침 후 선택 카테고리 유지.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "9b5bee30-cd80-4000-a770-ff1560b41a24",
+      "name": "[Phase 4-2] 클라이언트 사이드 검색 기능 구현",
+      "description": "src/components/SearchBar.tsx를 구현하고 Header에 통합한다. 글 제목 기준 실시간 클라이언트 사이드 필터링.",
+      "notes": "검색은 클라이언트 사이드 필터링 (API 재호출 없음). 서버에서 전체 posts를 받아 클라이언트에서 필터링. Header에 SearchBar 통합.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "f5a78178-ed59-4920-bf0f-d5717dc8cabd"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/SearchBar.tsx",
+          "type": "CREATE",
+          "description": "검색 바 컴포넌트 (클라이언트)"
+        },
+        {
+          "path": "src/components/Header.tsx",
+          "type": "TO_MODIFY",
+          "description": "SearchBar 통합"
+        },
+        {
+          "path": "src/app/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "검색 연동"
+        },
+        {
+          "path": "src/components/ui/input.tsx",
+          "type": "DEPENDENCY",
+          "description": "shadcn/ui Input"
+        }
+      ],
+      "implementationGuide": "SearchBar.tsx (클라이언트 컴포넌트):\n- 'use client' 선언\n- shadcn/ui Input 컴포넌트 사용\n- useState로 검색어 상태 관리\n- onChange 시 onSearch 콜백 호출\n- Lucide React Search 아이콘\n\n홈 페이지 검색 통합:\n- 서버에서 받은 posts를 클라이언트 상태로 관리하는 래퍼 컴포넌트 필요\n- PostListClient.tsx (클라이언트): posts props + searchQuery 상태 → 필터링된 목록 렌더링\n- 검색 결과 없음 상태 처리",
+      "verificationCriteria": "검색어 입력 시 제목 기준 실시간 필터링. 검색 결과 없음 상태 표시. 검색어 지우면 전체 목록 복원.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "a89594a3-06d6-45f4-b12d-b51c35301ec0",
+      "name": "[Phase 4-3] SEO 최적화 (메타데이터, OG 태그, sitemap, robots)",
+      "description": "전역 메타데이터, 글 상세 OG 태그, 동적 sitemap.ts, robots.ts를 구현한다.",
+      "notes": "sitemap.ts에서 NOTION_DATABASE_ID 환경변수 사용. 배포 후 실제 도메인으로 URL 업데이트 필요.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "a3a233b5-5c57-4d93-aa02-a2cccfeaa03d"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/layout.tsx",
+          "type": "TO_MODIFY",
+          "description": "전역 메타데이터 설정"
+        },
+        {
+          "path": "src/app/posts/[slug]/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "OG 태그 추가"
+        },
+        {
+          "path": "src/app/sitemap.ts",
+          "type": "CREATE",
+          "description": "동적 사이트맵"
+        },
+        {
+          "path": "src/app/robots.ts",
+          "type": "CREATE",
+          "description": "robots.txt 설정"
+        }
+      ],
+      "implementationGuide": "1. src/app/layout.tsx: metadata 객체에 title, description, openGraph 기본값 설정\n2. src/app/posts/[slug]/page.tsx generateMetadata() 보완:\n   - og:title, og:description 추가\n3. src/app/sitemap.ts:\n   - fetchPages()로 발행된 글 목록 조회\n   - 홈 URL + 각 글 /posts/[id] URL 배열 반환\n   - MetadataRoute.Sitemap 타입 사용\n4. src/app/robots.ts:\n   - MetadataRoute.Robots 타입 사용\n   - Allow: /, Disallow: 없음\n   - sitemap URL 포함",
+      "verificationCriteria": "/sitemap.xml 접근 시 발행된 글 URL 포함 XML 반환. /robots.txt 정상 반환. 글 상세 페이지 소셜 미리보기 도구에서 OG 태그 확인. npm run build 성공.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "11de5b3f-1a43-410b-bf75-5ad33ab54682",
+      "name": "[Phase 5-1] 성능 최적화 (next/image, Lighthouse, use client 정리)",
+      "description": "next/image 속성 최적화, 불필요한 use client 제거, @notionhq/client 호출 캐싱, ISR revalidate 값 최종 검토.",
+      "notes": "Lighthouse 측정은 Vercel 배포 후 수행. 로컬에서는 npm run build && npm start 후 측정 가능.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "20a1aa7f-24e9-4494-8c4f-7d64bc9936d0"
+        },
+        {
+          "taskId": "9b5bee30-cd80-4000-a770-ff1560b41a24"
+        },
+        {
+          "taskId": "a89594a3-06d6-45f4-b12d-b51c35301ec0"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/PostContent.tsx",
+          "type": "TO_MODIFY",
+          "description": "이미지 최적화"
+        },
+        {
+          "path": "src/lib/notion.ts",
+          "type": "TO_MODIFY",
+          "description": "API 호출 캐싱"
+        },
+        {
+          "path": "src/app/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "ISR revalidate 확인"
+        },
+        {
+          "path": "src/app/posts/[slug]/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "ISR revalidate 확인"
+        }
+      ],
+      "implementationGuide": "1. src/components/PostContent.tsx 이미지 블록:\n   - width/height 또는 fill + sizes 속성 적용\n   - priority 속성: 첫 번째 이미지에만 적용\n2. 전체 컴포넌트 use client 검토:\n   - useState/useEffect/이벤트핸들러 없는 컴포넌트에서 use client 제거\n3. src/lib/notion.ts:\n   - Next.js fetch 캐싱 또는 React cache() 함수로 중복 호출 방지\n4. ISR revalidate 값 확인: 글 목록 60, 글 상세 3600\n5. npm run build 후 번들 크기 확인",
+      "verificationCriteria": "npm run build 경고 없음. 불필요한 use client 없음. next/image에 적절한 크기 속성 설정. tsc --noEmit 통과.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    },
+    {
+      "id": "76aec696-0124-431a-8ee2-a706e322604d",
+      "name": "[Phase 5-2] 반응형 디자인 점검 및 Vercel 배포",
+      "description": "모바일(375px)/태블릿(768px)/데스크탑(1280px) 3개 구간 반응형 레이아웃을 점검하고 Vercel에 배포한다.",
+      "notes": "커스텀 도메인은 선택 사항. 배포 후 /sitemap.xml의 도메인을 실제 Vercel URL로 업데이트 필요.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "11de5b3f-1a43-410b-bf75-5ad33ab54682"
+        }
+      ],
+      "createdAt": "2026-04-21T13:56:47.305Z",
+      "updatedAt": "2026-04-21T13:56:47.305Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "반응형 그리드 최종 점검"
+        },
+        {
+          "path": "src/app/posts/[slug]/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "본문 max-width 설정"
+        },
+        {
+          "path": "src/components/PostContent.tsx",
+          "type": "TO_MODIFY",
+          "description": "코드 블록 overflow 처리"
+        },
+        {
+          "path": "src/app/sitemap.ts",
+          "type": "TO_MODIFY",
+          "description": "배포 도메인으로 URL 업데이트"
+        }
+      ],
+      "implementationGuide": "반응형 점검:\n1. 글 카드 그리드: grid-cols-1 md:grid-cols-2 lg:grid-cols-3\n2. 글 상세 본문: max-w-3xl mx-auto (가독성)\n3. 코드 블록: overflow-x-auto\n4. Header: 모바일에서 검색바 레이아웃 조정\n\nVercel 배포:\n1. GitHub 저장소에 push\n2. Vercel 프로젝트 연결 (Import Git Repository)\n3. 환경변수 설정: NOTION_API_KEY, NOTION_DATABASE_ID\n4. 프로덕션 빌드 확인\n5. 배포된 URL에서 주요 페이지 동작 검증",
+      "verificationCriteria": "375px/768px/1280px 뷰포트에서 레이아웃 깨짐 없음. Vercel 프로덕션 URL에서 홈, 글 상세, 카테고리 필터, 검색 기능 정상 동작. 빌드 로그 오류/경고 없음.",
+      "analysisResult": "ROADMAP.md 기반 Notion CMS 개인 블로그 전체 개발 계획. Next.js 15 App Router + TypeScript + Tailwind CSS + shadcn/ui + @notionhq/client 스택으로 구축. Phase 1→2→3→4→5 순서 엄수. shrimp-rules.md 규칙 준수: 서버 컴포넌트 우선, src/lib/notion.ts 단일 API 호출 지점, any 타입 금지, next/image 사용 필수, .env.local 커밋 금지."
+    }
+  ]
+}
